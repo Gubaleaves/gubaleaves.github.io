@@ -34,10 +34,10 @@
 <meta property="og:image" content="http://example.com/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/rag%E6%95%88%E6%9E%9C.png">
 <meta property="og:image" content="http://example.com/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/stream%E6%95%88%E6%9E%9C.png">
 <meta property="og:image" content="http://example.com/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/context%E6%95%88%E6%9E%9C.png">
-<meta property="og:image" content="http://example.com/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/functioncall.jepg">
+<meta property="og:image" content="http://example.com/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/functioncall.jpeg">
 <meta property="og:image" content="http://example.com/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/func%E6%95%88%E6%9E%9C.png">
 <meta property="article:published_time" content="2024-07-06T09:55:00.000Z">
-<meta property="article:modified_time" content="2024-07-06T09:55:58.237Z">
+<meta property="article:modified_time" content="2024-07-06T10:13:56.913Z">
 <meta property="article:author" content="Loong">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="SpringAI">
@@ -380,7 +380,7 @@
 <p><img src="/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/context%E6%95%88%E6%9E%9C.png" srcset="/img/loading.gif" lazyload alt="效果"></p>
 <h2 id="AGENT"><a href="#AGENT" class="headerlink" title="AGENT"></a>AGENT</h2><p>AI Agent（人工智能代理）是一种能够感知环境、进行决策和执行动作的智能实体。不同于传统的人工智能，AI Agent具备通过独立思考、调用工具去逐步实现给定目标的能力。</p>
 <p>AI Agents &#x3D; 任务规划（来自 LLM ）+ 记忆 + 各类协作工具（访问外部资源）+ 执行&#x2F;反馈。函数调用，即 Function Calling 的整体流程可如下图所示：</p>
-<p><img src="/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/functioncall.jepg" srcset="/img/loading.gif" lazyload alt="Function Calling 整体流程"></p>
+<p><img src="/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/functioncall.jpeg" srcset="/img/loading.gif" lazyload alt="Function Calling 整体流程"></p>
 <p>在该部分，我们希望 AI 能够通过调用<a target="_blank" rel="noopener" href="https://www.weatherapi.com/"> weather api </a>去根据用户的提问查询天气，并给出回复。首先，我们需要获得<a target="_blank" rel="noopener" href="https://www.weatherapi.com/"> weather api </a>的<code>api-key</code>及<code>api-url</code>，并在<code>application.yml</code>中增加如下字段：</p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">weather:</span><br>  <span class="hljs-attr">api-key:</span> <span class="hljs-string">$&#123;WEATHER_API_KEY&#125;</span><br>  <span class="hljs-attr">api-url:</span> <span class="hljs-string">http://api.weatherapi.com/v1</span><br></code></pre></td></tr></table></figure>
 
