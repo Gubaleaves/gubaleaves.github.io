@@ -16,12 +16,12 @@
   <meta name="author" content="Loong">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！ 因此，在此处记录一下整体的过程，也方便有幸看到的朋友也能够搭建一个属于自己的小博客。 本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考到的链接放在下方，也方便读者自己去选择和研究。 Step1: 本地部署Node.js 安装">
+    <meta name="description" content="前言我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！ 因此，在此处记录一下整体的过程，也方便看到的朋友也能够搭建一个属于自己的小博客。 本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考文章的链接放在最下方，方便读者自己去选择和研究。 Step1: 本地部署Node.js 安装直">
 <meta property="og:type" content="article">
 <meta property="og:title" content="博客是怎样建成的">
 <meta property="og:url" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/index.html">
 <meta property="og:site_name" content="Loong&#39;s Blog">
-<meta property="og:description" content="前言我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！ 因此，在此处记录一下整体的过程，也方便有幸看到的朋友也能够搭建一个属于自己的小博客。 本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考到的链接放在下方，也方便读者自己去选择和研究。 Step1: 本地部署Node.js 安装">
+<meta property="og:description" content="前言我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！ 因此，在此处记录一下整体的过程，也方便看到的朋友也能够搭建一个属于自己的小博客。 本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考文章的链接放在最下方，方便读者自己去选择和研究。 Step1: 本地部署Node.js 安装直">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/hexo%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%88%90.png">
 <meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/github%E5%BB%BA%E5%BA%93.png">
@@ -30,9 +30,10 @@
 <meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH%E6%B5%8B%E8%AF%95%E6%88%90%E5%8A%9F.png">
 <meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E7%B2%98%E8%B4%B4SSH%E5%9C%B0%E5%9D%80.png">
 <meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E4%BF%AE%E6%94%B9config%E6%96%87%E4%BB%B6deploy.png">
-<meta property="article:published_time" content="2024-07-03T02:20:53.342Z">
-<meta property="article:modified_time" content="2024-07-04T01:47:57.326Z">
+<meta property="article:published_time" content="2024-07-03T11:27:00.000Z">
+<meta property="article:modified_time" content="2024-07-06T09:55:58.232Z">
 <meta property="article:author" content="Loong">
+<meta property="article:tag" content="Blog">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/hexo%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%88%90.png">
   
@@ -215,8 +216,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-03 10:20" pubdate>
-          2024年7月3日 上午
+        <time datetime="2024-07-03 19:27" pubdate>
+          2024年7月3日 晚上
         </time>
       </span>
     
@@ -227,7 +228,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          826 字
+          842 字
         
       </span>
     
@@ -238,7 +239,7 @@
         
         
         
-          7 分钟
+          8 分钟
         
       </span>
     
@@ -281,8 +282,8 @@
               <div class="markdown-body">
                 
                 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！</p>
-<p>因此，在此处记录一下整体的过程，也方便有幸看到的朋友也能够搭建一个属于自己的小博客。</p>
-<p>本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考到的链接放在下方，也方便读者自己去选择和研究。</p>
+<p>因此，在此处记录一下整体的过程，也方便看到的朋友也能够搭建一个属于自己的小博客。</p>
+<p>本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考文章的链接放在最下方，方便读者自己去选择和研究。</p>
 <h2 id="Step1-本地部署"><a href="#Step1-本地部署" class="headerlink" title="Step1: 本地部署"></a>Step1: 本地部署</h2><h3 id="Node-js-安装"><a href="#Node-js-安装" class="headerlink" title="Node.js 安装"></a>Node.js 安装</h3><p>直接从<a target="_blank" rel="noopener" href="https://nodejs.org/en/"> Node.js 官网</a>下载后安装即可。</p>
 <p>安装完成后，输入下列命令，如果出现版本号，证明配置成功。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">node -v<br></code></pre></td></tr></table></figure>
@@ -291,7 +292,7 @@
 <p>安装完成后，输入下列命令，如果出现版本号，证明配置成功。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">git -v<br></code></pre></td></tr></table></figure>
 
-<h3 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h3><p>在终端输入下列命令即可自动安装。</p>
+<h3 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h3><p>在终端输入下列命令即可自动安装，需要注意的是此处是此处使用<code>sudo</code>是为了全局安装。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo npm install -g hexo-cli<br></code></pre></td></tr></table></figure>
 
 <p>来到你的博客文件夹想要存放的空间，输入以下指令用于初始化本地博客文件，其中<code>MyBlog</code>可以修改为你希望的文件夹名称。</p>
@@ -308,8 +309,7 @@
 <p>如果需要退出hexo，可以使用<code>ctrl+c</code>。</p>
 <h2 id="Step2-连接至-Github"><a href="#Step2-连接至-Github" class="headerlink" title="Step2: 连接至 Github"></a>Step2: 连接至 Github</h2><h3 id="创建-Github-库"><a href="#创建-Github-库" class="headerlink" title="创建 Github 库"></a>创建 Github 库</h3><p>如果还没有 Github 账号，请先注册。</p>
 <p>创建一个新的仓库，名字必须为<code>用户名.github.io</code>，比如<code>gubaleaves.github.io</code>，注意所建的库要公开。</p>
-<img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/github建库.png" srcset="/img/loading.gif" lazyload alt="新建一个公开库" width="50%">
-
+<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/github%E5%BB%BA%E5%BA%93.png" srcset="/img/loading.gif" lazyload alt="新建一个公开库"></p>
 <h3 id="安装-Git-部署插件"><a href="#安装-Git-部署插件" class="headerlink" title="安装 Git 部署插件"></a>安装 Git 部署插件</h3><p>输入以下命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install hexo-deployer-git --save <br></code></pre></td></tr></table></figure>
 
@@ -317,27 +317,22 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh-keygen -t rsa -C &quot;email@example.com&quot;<br></code></pre></td></tr></table></figure>
 
 <p>输入命令后连续回车三次即可，中间步骤并不重要，完成后可以得到 SSH 密钥。</p>
-<img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/公钥.png" srcset="/img/loading.gif" lazyload alt="获得 SSH 密钥" width="50%">
-
-<p>可以看到密钥保存在<code>/var/root/.ssh/id_rsa.pub</code>中，从该文件中复制密钥，登入 Github ，进入<code>Settings</code>，找到<code>SSH and GPG Keys</code>，选择<code>New SSH key</code>进行配置。</p>
-<img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH配置.png" srcset="/img/loading.gif" lazyload alt="配置 SSH" width="50%">
-
+<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%85%AC%E9%92%A5.png" srcset="/img/loading.gif" lazyload alt="获得 SSH 密钥"></p>
+<p>可以看到密钥保存在<code>/var/root/.ssh/id_rsa.pub</code>中（可能会不同），进入该文件复制密钥，登入 Github ，进入<code>Settings</code>，找到<code>SSH and GPG Keys</code>，选择<code>New SSH key</code>进行配置。</p>
+<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH%E9%85%8D%E7%BD%AE.png" srcset="/img/loading.gif" lazyload alt="配置 SSH"></p>
 <p>在博客文件夹下运行以下命令，如果提示<code>You&#39;ve successfully authenticated</code>，则 SSH 已经配置成功。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh -T git@github.com<br></code></pre></td></tr></table></figure>
 
-<img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH测试成功.png" srcset="/img/loading.gif" lazyload alt="配置成功！" width="50%">
-
+<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH%E6%B5%8B%E8%AF%95%E6%88%90%E5%8A%9F.png" srcset="/img/loading.gif" lazyload alt="配置成功！"></p>
 <h3 id="更新本地文件到-Github"><a href="#更新本地文件到-Github" class="headerlink" title="更新本地文件到 Github"></a>更新本地文件到 Github</h3><p>首先前往 Github 仓库，粘贴 SSH 地址。</p>
-<img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/粘贴SSH地址.png" srcset="/img/loading.gif" lazyload alt="粘贴 SSH 地址" width="50%">
-
+<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E7%B2%98%E8%B4%B4SSH%E5%9C%B0%E5%9D%80.png" srcset="/img/loading.gif" lazyload alt="粘贴 SSH 地址"></p>
 <p>之后需要修改博客文件夹下的<code>_config.yml</code>文件。</p>
-<img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/修改config文件deploy.png" srcset="/img/loading.gif" lazyload alt="修改 config 文件" width="50%">
-
+<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E4%BF%AE%E6%94%B9config%E6%96%87%E4%BB%B6deploy.png" srcset="/img/loading.gif" lazyload alt="修改 config 文件"></p>
 <p>运行以下命令：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install hexo-deployer-git --save<br>hexo g -d<br></code></pre></td></tr></table></figure>
 
 <p>以后每次修改上传都需要重新运行<code>hexo g -d</code>命令，上传成功便会显示提示<code>INFO  Deploy done: git</code>。</p>
-<p>此时可通过<code>https://你的用户名.github.io</code>（注意将该链接中用户名改成你自己的）来访问你的博客！</p>
+<p>此时可通过<code>https://用户名.github.io</code>（用户名要改成自己的）来访问你的博客！</p>
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>知乎 - <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/703031471">使用Github Pages和Hexo部署个人博客</a></p>
 <p>知乎 - <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/688561305">【2024】从零开始用Hexo+GithubPage搭建个人网站（保姆级）</a></p>
 <p>CSDN - <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_63398413/article/details/137103772">使用 Github Pages 和 Hexo 搭建自己的独立博客</a></p>
@@ -350,6 +345,13 @@
             <div>
               <div class="post-metas my-3">
   
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Blog/" class="print-no-link">#Blog</a>
+      
+    </div>
   
 </div>
 
@@ -403,6 +405,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" title="SpringAI 基础使用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">SpringAI 基础使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
