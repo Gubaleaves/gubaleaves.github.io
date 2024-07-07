@@ -1,682 +1,258 @@
-
-
-<!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=auto>
-
-
-
-<head>
-  <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
-  <link rel="icon" href="/img/fluid.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="Loong">
-  <meta name="keywords" content="">
-  
-    <meta name="description" content="前言我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！ 因此，在此处记录一下整体的过程，也方便看到的朋友也能够搭建一个属于自己的小博客。 本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考文章的链接放在最下方，方便读者自己去选择和研究。 Step1: 本地部署Node.js 安装直">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>博客是怎样建成的 | Loong's Blog</title><meta name="author" content="Loong"><meta name="copyright" content="Loong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！ 因此，在此处记录一下整体的过程，也方便看到的朋友也能够搭建一个属于自己的小博客。 本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考文章的链接放在最下方，方便读者自己去选择和研究。 Step1: 本地部署Node.js 安装直">
 <meta property="og:type" content="article">
 <meta property="og:title" content="博客是怎样建成的">
-<meta property="og:url" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/index.html">
+<meta property="og:url" content="https://gubaleaves.github.io/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/index.html">
 <meta property="og:site_name" content="Loong&#39;s Blog">
 <meta property="og:description" content="前言我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！ 因此，在此处记录一下整体的过程，也方便看到的朋友也能够搭建一个属于自己的小博客。 本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考文章的链接放在最下方，方便读者自己去选择和研究。 Step1: 本地部署Node.js 安装直">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/hexo%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%88%90.png">
-<meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/github%E5%BB%BA%E5%BA%93.png">
-<meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%85%AC%E9%92%A5.png">
-<meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH%E9%85%8D%E7%BD%AE.png">
-<meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH%E6%B5%8B%E8%AF%95%E6%88%90%E5%8A%9F.png">
-<meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E7%B2%98%E8%B4%B4SSH%E5%9C%B0%E5%9D%80.png">
-<meta property="og:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E4%BF%AE%E6%94%B9config%E6%96%87%E4%BB%B6deploy.png">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
 <meta property="article:published_time" content="2024-07-03T11:27:00.000Z">
-<meta property="article:modified_time" content="2024-07-06T09:55:58.232Z">
+<meta property="article:modified_time" content="2024-07-06T14:11:26.621Z">
 <meta property="article:author" content="Loong">
 <meta property="article:tag" content="Blog">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/hexo%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%88%90.png">
-  
-  
-  
-  <title>博客是怎样建成的 - Loong&#39;s Blog</title>
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-
-
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
-
-  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-<!-- Do not modify the link that theme dependent icons -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-
-  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
-  
-    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
-  
-
-
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
-
-    if (CONFIG.web_analytics.follow_dnt) {
-      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
-      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
-    }
-  </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-  
-
-
-  
-<meta name="generator" content="Hexo 7.3.0"></head>
-
-
-<body>
-  
-
-  <header>
-    
-
-<div class="header-inner" style="height: 70vh;">
-  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <strong>Fluid</strong>
-    </a>
-
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
-
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/" target="_self">
-                <i class="iconfont icon-home-fill"></i>
-                <span>首页</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/" target="_self">
-                <i class="iconfont icon-archive-fill"></i>
-                <span>归档</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/" target="_self">
-                <i class="iconfont icon-category-fill"></i>
-                <span>分类</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/" target="_self">
-                <i class="iconfont icon-tags-fill"></i>
-                <span>标签</span>
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/" target="_self">
-                <i class="iconfont icon-user-fill"></i>
-                <span>关于</span>
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              <i class="iconfont icon-search"></i>
-            </a>
-          </li>
-          
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
-              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-
-  
-
-<div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
-  <div class="full-bg-img">
-    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-      <div class="banner-text text-center fade-in-up">
-        <div class="h2">
-          
-            <span id="subtitle" data-typed-text="博客是怎样建成的"></span>
-          
-        </div>
-
-        
-          
-  <div class="mt-3">
-    
-    
-      <span class="post-meta">
-        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-07-03 19:27" pubdate>
-          2024年7月3日 晚上
-        </time>
-      </span>
-    
-  </div>
-
-  <div class="mt-1">
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-chart"></i>
-        
-          842 字
-        
-      </span>
-    
-
-    
-      <span class="post-meta mr-2">
-        <i class="iconfont icon-clock-fill"></i>
-        
-        
-        
-          8 分钟
-        
-      </span>
-    
-
-    
-    
-  </div>
-
-
-        
-      </div>
-
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/project/img/favicon.png"><link rel="canonical" href="https://gubaleaves.github.io/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/project/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/project/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '博客是怎样建成的',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-06 22:11:26'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
-    </div>
-  </div>
-</div>
-
-</div>
-
-  </header>
-
-  <main>
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
     
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
       
-
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-
-    </div>
-
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div id="board">
-          <article class="post-content mx-auto">
-            <h1 id="seo-header">博客是怎样建成的</h1>
-            
-            
-              <div class="markdown-body">
-                
-                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！</p>
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/project/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/project/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/project/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/project/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/project/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/project/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/project/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/project/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/project/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/project/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a href="/project/" title="Loong's Blog"><span class="site-name">Loong's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/project/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/project/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/project/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/project/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/project/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page child" href="/project/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/project/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/project/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">博客是怎样建成的</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-03T11:27:00.000Z" title="发表于 2024-07-03 19:27:00">2024-07-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-06T14:11:26.621Z" title="更新于 2024-07-06 22:11:26">2024-07-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="博客是怎样建成的"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！</p>
 <p>因此，在此处记录一下整体的过程，也方便看到的朋友也能够搭建一个属于自己的小博客。</p>
 <p>本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考文章的链接放在最下方，方便读者自己去选择和研究。</p>
 <h2 id="Step1-本地部署"><a href="#Step1-本地部署" class="headerlink" title="Step1: 本地部署"></a>Step1: 本地部署</h2><h3 id="Node-js-安装"><a href="#Node-js-安装" class="headerlink" title="Node.js 安装"></a>Node.js 安装</h3><p>直接从<a target="_blank" rel="noopener" href="https://nodejs.org/en/"> Node.js 官网</a>下载后安装即可。</p>
 <p>安装完成后，输入下列命令，如果出现版本号，证明配置成功。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">node -v<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
 
 <h3 id="Git-安装"><a href="#Git-安装" class="headerlink" title="Git 安装"></a>Git 安装</h3><p>直接从<a target="_blank" rel="noopener" href="https://git-scm.com/"> Git 官网</a>下载后安装即可。</p>
 <p>安装完成后，输入下列命令，如果出现版本号，证明配置成功。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">git -v<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git -v</span><br></pre></td></tr></table></figure>
 
 <h3 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h3><p>在终端输入下列命令即可自动安装，需要注意的是此处是此处使用<code>sudo</code>是为了全局安装。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">sudo npm install -g hexo-cli<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
 <p>来到你的博客文件夹想要存放的空间，输入以下指令用于初始化本地博客文件，其中<code>MyBlog</code>可以修改为你希望的文件夹名称。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo init MyBlog<br>cd ~/MyBlog/<br>npm install<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init MyBlog</span><br><span class="line">cd ~/MyBlog/</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
 
 <p>初始化完成后，目录结构为：</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs 1c">.<br>├── _config.yml  <span class="hljs-meta"># 网站配置信息</span><br>├── package.json  <span class="hljs-meta"># 应用程序信息</span><br>├── scaffolds  <span class="hljs-meta"># 模板文件夹</span><br>├── source  <span class="hljs-meta"># 存放用户资源</span><br><span class="hljs-string">|   ├── _drafts</span><br><span class="hljs-string">|   └── _posts  # 你的博客文档</span><br>└── themes  <span class="hljs-meta"># 主题文件夹</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml  # 网站配置信息</span><br><span class="line">├── package.json  # 应用程序信息</span><br><span class="line">├── scaffolds  # 模板文件夹</span><br><span class="line">├── source  # 存放用户资源</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts  # 你的博客文档</span><br><span class="line">└── themes  # 主题文件夹</span><br></pre></td></tr></table></figure>
 
 <p>在终端中输入如下内容，在本地生成相关静态文件并启动。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">hexo g<br>hexo s<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
 
 <p>现在可以通过浏览器访问 <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000</a> 查看效果，如果跟下图一样，证明本地部署成功。</p>
-<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/hexo%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%88%90.png" srcset="/img/loading.gif" lazyload alt="本地部署完成"></p>
+<p><img src="/project/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/hexo%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2%E5%AE%8C%E6%88%90.png" alt="本地部署完成"></p>
 <p>如果需要退出hexo，可以使用<code>ctrl+c</code>。</p>
 <h2 id="Step2-连接至-Github"><a href="#Step2-连接至-Github" class="headerlink" title="Step2: 连接至 Github"></a>Step2: 连接至 Github</h2><h3 id="创建-Github-库"><a href="#创建-Github-库" class="headerlink" title="创建 Github 库"></a>创建 Github 库</h3><p>如果还没有 Github 账号，请先注册。</p>
 <p>创建一个新的仓库，名字必须为<code>用户名.github.io</code>，比如<code>gubaleaves.github.io</code>，注意所建的库要公开。</p>
-<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/github%E5%BB%BA%E5%BA%93.png" srcset="/img/loading.gif" lazyload alt="新建一个公开库"></p>
+<p><img src="/project/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/github%E5%BB%BA%E5%BA%93.png" alt="新建一个公开库"></p>
 <h3 id="安装-Git-部署插件"><a href="#安装-Git-部署插件" class="headerlink" title="安装 Git 部署插件"></a>安装 Git 部署插件</h3><p>输入以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install hexo-deployer-git --save <br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save </span><br></pre></td></tr></table></figure>
 
 <h3 id="配置-SSH-密钥"><a href="#配置-SSH-密钥" class="headerlink" title="配置 SSH 密钥"></a>配置 SSH 密钥</h3><p>在创建的博客文件夹下输入以下命令，其中<code>email@example.com</code>需要替换为自己的 Github 邮箱地址。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh-keygen -t rsa -C &quot;email@example.com&quot;<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;email@example.com&quot;</span><br></pre></td></tr></table></figure>
 
 <p>输入命令后连续回车三次即可，中间步骤并不重要，完成后可以得到 SSH 密钥。</p>
-<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%85%AC%E9%92%A5.png" srcset="/img/loading.gif" lazyload alt="获得 SSH 密钥"></p>
+<p><img src="/project/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%85%AC%E9%92%A5.png" alt="获得 SSH 密钥"></p>
 <p>可以看到密钥保存在<code>/var/root/.ssh/id_rsa.pub</code>中（可能会不同），进入该文件复制密钥，登入 Github ，进入<code>Settings</code>，找到<code>SSH and GPG Keys</code>，选择<code>New SSH key</code>进行配置。</p>
-<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH%E9%85%8D%E7%BD%AE.png" srcset="/img/loading.gif" lazyload alt="配置 SSH"></p>
+<p><img src="/project/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH%E9%85%8D%E7%BD%AE.png" alt="配置 SSH"></p>
 <p>在博客文件夹下运行以下命令，如果提示<code>You&#39;ve successfully authenticated</code>，则 SSH 已经配置成功。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ssh -T git@github.com<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH%E6%B5%8B%E8%AF%95%E6%88%90%E5%8A%9F.png" srcset="/img/loading.gif" lazyload alt="配置成功！"></p>
+<p><img src="/project/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/SSH%E6%B5%8B%E8%AF%95%E6%88%90%E5%8A%9F.png" alt="配置成功！"></p>
 <h3 id="更新本地文件到-Github"><a href="#更新本地文件到-Github" class="headerlink" title="更新本地文件到 Github"></a>更新本地文件到 Github</h3><p>首先前往 Github 仓库，粘贴 SSH 地址。</p>
-<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E7%B2%98%E8%B4%B4SSH%E5%9C%B0%E5%9D%80.png" srcset="/img/loading.gif" lazyload alt="粘贴 SSH 地址"></p>
+<p><img src="/project/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E7%B2%98%E8%B4%B4SSH%E5%9C%B0%E5%9D%80.png" alt="粘贴 SSH 地址"></p>
 <p>之后需要修改博客文件夹下的<code>_config.yml</code>文件。</p>
-<p><img src="/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E4%BF%AE%E6%94%B9config%E6%96%87%E4%BB%B6deploy.png" srcset="/img/loading.gif" lazyload alt="修改 config 文件"></p>
+<p><img src="/project/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/%E4%BF%AE%E6%94%B9config%E6%96%87%E4%BB%B6deploy.png" alt="修改 config 文件"></p>
 <p>运行以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install hexo-deployer-git --save<br>hexo g -d<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br><span class="line">hexo g -d</span><br></pre></td></tr></table></figure>
 
 <p>以后每次修改上传都需要重新运行<code>hexo g -d</code>命令，上传成功便会显示提示<code>INFO  Deploy done: git</code>。</p>
 <p>此时可通过<code>https://用户名.github.io</code>（用户名要改成自己的）来访问你的博客！</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>如果不是要求使用管理员指令<code>sudo</code>的，尽量不要使用，不然很容易出现权限问题；</p>
+</li>
+<li><p>如果出现了权限问题，报错一般为<code>Error: EACCES</code>，可以使用如下指令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $USER /usr/local/需要权限的路径</span><br></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>知乎 - <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/703031471">使用Github Pages和Hexo部署个人博客</a></p>
 <p>知乎 - <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/688561305">【2024】从零开始用Hexo+GithubPage搭建个人网站（保姆级）</a></p>
 <p>CSDN - <a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_63398413/article/details/137103772">使用 Github Pages 和 Hexo 搭建自己的独立博客</a></p>
 <p>Bilibili - <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1Lt411R78H/?spm_id_from=333.1007.top_right_bar_window_history.content.click&vd_source=738151acb85f4e006a90798faab4e902">最新从零开始Github Pages +Hexo 搭建个人静态博客与Next主题个性化配置</a></p>
-
-                
-              </div>
-            
-            <hr/>
-            <div>
-              <div class="post-metas my-3">
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/Blog/" class="print-no-link">#Blog</a>
-      
-    </div>
-  
-</div>
-
-
-              
-  
-
-  <div class="license-box my-3">
-    <div class="license-title">
-      <div>博客是怎样建成的</div>
-      <div>http://example.com/2024/07/03/博客是怎样建成的/</div>
-    </div>
-    <div class="license-meta">
-      
-        <div class="license-meta-item">
-          <div>作者</div>
-          <div>Loong</div>
-        </div>
-      
-      
-        <div class="license-meta-item license-meta-date">
-          <div>发布于</div>
-          <div>2024年7月3日</div>
-        </div>
-      
-      
-      
-        <div class="license-meta-item">
-          <div>许可协议</div>
-          <div>
-            
-              
-              
-                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                    <i class="iconfont icon-by"></i>
-                  </span>
-                </a>
-              
-            
-          </div>
-        </div>
-      
-    </div>
-    <div class="license-icon iconfont"></div>
-  </div>
-
-
-
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" title="SpringAI 基础使用">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">SpringAI 基础使用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
-    </div>
-
-    <div class="side-col d-none d-lg-block col-lg-2">
-      
-  <aside class="sidebar" style="margin-left: -1rem">
-    <div id="toc">
-  <p class="toc-header">
-    <i class="iconfont icon-list"></i>
-    <span>目录</span>
-  </p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-
-
-  </aside>
-
-
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-  
-
-
-
-
-
-
-
-    
-
-    
-      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
-    
-
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    
-
-    
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-  
-    <div class="footer-content">
-       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
-    </div>
-  
-  
-  
-  
-</div>
-
-  </footer>
-
-  <!-- Scripts -->
-  
-  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://gubaleaves.github.io/project">Loong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://gubaleaves.github.io/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/">https://gubaleaves.github.io/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://gubaleaves.github.io/project" target="_blank">Loong's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/project/tags/Blog/">Blog</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/project/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" title="SpringAI 基础使用"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">SpringAI 基础使用</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/project/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Loong</div><div class="author-info__description">Go for it! Just do it!</div></div><div class="card-info-data site-data is-center"><a href="/project/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/project/tags/"><div class="headline">标签</div><div class="length-num">3</div></a><a href="/project/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Gubaleaves" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Step1-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2"><span class="toc-number">2.</span> <span class="toc-text">Step1: 本地部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Node-js-%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">Node.js 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Git-%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">Git 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo%E5%AE%89%E8%A3%85"><span class="toc-number">2.3.</span> <span class="toc-text">Hexo安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Step2-%E8%BF%9E%E6%8E%A5%E8%87%B3-Github"><span class="toc-number">3.</span> <span class="toc-text">Step2: 连接至 Github</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA-Github-%E5%BA%93"><span class="toc-number">3.1.</span> <span class="toc-text">创建 Github 库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Git-%E9%83%A8%E7%BD%B2%E6%8F%92%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">安装 Git 部署插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-SSH-%E5%AF%86%E9%92%A5"><span class="toc-number">3.3.</span> <span class="toc-text">配置 SSH 密钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%B4%E6%96%B0%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%88%B0-Github"><span class="toc-number">3.4.</span> <span class="toc-text">更新本地文件到 Github</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">4.</span> <span class="toc-text">注意事项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">5.</span> <span class="toc-text">参考文章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/project/2024/07/06/SpringAI%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" title="SpringAI 基础使用">SpringAI 基础使用</a><time datetime="2024-07-06T09:55:00.000Z" title="发表于 2024-07-06 17:55:00">2024-07-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/project/2024/07/03/%E5%8D%9A%E5%AE%A2%E6%98%AF%E6%80%8E%E6%A0%B7%E5%BB%BA%E6%88%90%E7%9A%84/" title="博客是怎样建成的">博客是怎样建成的</a><time datetime="2024-07-03T11:27:00.000Z" title="发表于 2024-07-03 19:27:00">2024-07-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Loong</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/project/js/utils.js?v=4.13.0"></script><script src="/project/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://leafloong.netlify.app/.netlify/functions/twikoo',
+      region: 'ap-shanghai',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
     })
-  </script>
+  }
 
-
-<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
-<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-
-  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var subtitle = document.getElementById('subtitle');
-      if (!subtitle || !typing) {
-        return;
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://leafloong.netlify.app/.netlify/functions/twikoo',
+      region: 'ap-shanghai',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
       }
-      var text = subtitle.getAttribute('data-typed-text');
-      
-        typing(text);
-      
-    })(window, document);
-  </script>
+    }, null))
 
+    
+  }
 
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js').then(init)
+  }
 
-
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
-    var toc = jQuery('#toc');
-    if (toc.length === 0 || !window.tocbot) { return; }
-    var boardCtn = jQuery('#board-ctn');
-    var boardTop = boardCtn.offset().top;
-
-    window.tocbot.init(Object.assign({
-      tocSelector     : '#toc-body',
-      contentSelector : '.markdown-body',
-      linkClass       : 'tocbot-link',
-      activeLinkClass : 'tocbot-active-link',
-      listClass       : 'tocbot-list',
-      isCollapsedClass: 'tocbot-is-collapsed',
-      collapsibleClass: 'tocbot-is-collapsible',
-      scrollSmooth    : true,
-      includeTitleTags: true,
-      headingsOffset  : -boardTop,
-    }, CONFIG.toc));
-    if (toc.find('.toc-list-item').length > 0) {
-      toc.css('visibility', 'visible');
-    }
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('tocbot' in window) {
-        tocbot.refresh();
-        var toc = jQuery('#toc');
-        if (toc.length === 0 || !tocbot) {
-          return;
-        }
-        if (toc.find('.toc-list-item').length > 0) {
-          toc.css('visibility', 'visible');
-        }
-      }
-    });
-  });
-</script>
-
-
-  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
-
-  <script>Fluid.plugins.codeWidget();</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
-    window.anchors.options = {
-      placement: CONFIG.anchorjs.placement,
-      visible  : CONFIG.anchorjs.visible
-    };
-    if (CONFIG.anchorjs.icon) {
-      window.anchors.options.icon = CONFIG.anchorjs.icon;
-    }
-    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-    var res = [];
-    for (var item of el) {
-      res.push('.markdown-body > ' + item.trim());
-    }
-    if (CONFIG.anchorjs.placement === 'left') {
-      window.anchors.options.class = 'anchorjs-link-left';
-    }
-    window.anchors.add(res.join(', '));
-
-    Fluid.events.registerRefreshCallback(function() {
-      if ('anchors' in window) {
-        anchors.removeAll();
-        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
-        var res = [];
-        for (var item of el) {
-          res.push('.markdown-body > ' + item.trim());
-        }
-        if (CONFIG.anchorjs.placement === 'left') {
-          anchors.options.class = 'anchorjs-link-left';
-        }
-        anchors.add(res.join(', '));
-      }
-    });
-  });
-</script>
-
-
-  
-<script>
-  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
-    Fluid.plugins.fancyBox();
-  });
-</script>
-
-
-  <script>Fluid.plugins.imageCaption();</script>
-
-  <script  src="/js/local-search.js" ></script>
-
-
-
-
-
-<!-- 主题的启动项，将它保持在最底部 -->
-<!-- the boot of the theme, keep it at the bottom -->
-<script  src="/js/boot.js" ></script>
-
-
-  
-
-  <noscript>
-    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
-  </noscript>
-</body>
-</html>
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
