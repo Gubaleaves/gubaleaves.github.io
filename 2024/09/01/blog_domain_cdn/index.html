@@ -1,32 +1,251 @@
-extends includes/layout.pug
-
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
-
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable && theme.reward.QR_code
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>博客是怎样优化的｜自定义域名 | Loong's Blog</title><meta name="author" content="Loong"><meta name="copyright" content="Loong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言在写博客的这段时间中，我发现将图像等静态资源放在 Github 上经常出现图片无法访问、加载速度慢的问题，前者可能是上传的过程中出现了错误，而后者会随着博客内容的增多而加剧，因此我决定使用阿里云 OSS 服务作为图床。同时，通过注册个人域名，并使用 Cloudflare 托管域名，获得 Cloudflare 提供的诸多免费功能。 因为过程中由于对部分操作不熟悉，遇到了许多问题，但完成后内心是激">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博客是怎样优化的｜自定义域名">
+<meta property="og:url" content="https://gubaleaves.github.io/2024/09/01/blog_domain_cdn/index.html">
+<meta property="og:site_name" content="Loong&#39;s Blog">
+<meta property="og:description" content="前言在写博客的这段时间中，我发现将图像等静态资源放在 Github 上经常出现图片无法访问、加载速度慢的问题，前者可能是上传的过程中出现了错误，而后者会随着博客内容的增多而加剧，因此我决定使用阿里云 OSS 服务作为图床。同时，通过注册个人域名，并使用 Cloudflare 托管域名，获得 Cloudflare 提供的诸多免费功能。 因为过程中由于对部分操作不熟悉，遇到了许多问题，但完成后内心是激">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-09-01T11:43:00.000Z">
+<meta property="article:modified_time" content="2024-09-03T12:13:54.000Z">
+<meta property="article:author" content="Loong">
+<meta property="article:tag" content="Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://gubaleaves.github.io/2024/09/01/blog_domain_cdn/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '博客是怎样优化的｜自定义域名',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-03 20:13:54'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Loong's Blog"><span class="site-name">Loong's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">博客是怎样优化的｜自定义域名</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-01T11:43:00.000Z" title="发表于 2024-09-01 19:43:00">2024-09-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-03T12:13:54.000Z" title="更新于 2024-09-03 20:13:54">2024-09-03</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="博客是怎样优化的｜自定义域名"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在写博客的这段时间中，我发现将图像等静态资源放在 Github 上经常出现图片无法访问、加载速度慢的问题，前者可能是上传的过程中出现了错误，而后者会随着博客内容的增多而加剧，因此我决定使用<strong>阿里云 OSS 服务</strong>作为图床。同时，通过<strong>注册个人域名</strong>，并<strong>使用 Cloudflare 托管域名</strong>，获得 Cloudflare 提供的诸多免费功能。</p>
+<p>因为过程中由于对部分操作不熟悉，遇到了许多问题，但完成后内心是激动万分的！在此，我会将这些过程逐步记录下来，用于纪念，也便于其他人学习。我会以两篇文章分别介绍 OSS 图床与自定义域名的实现，本文将介绍实现自定义域名的具体步骤。</p>
+<h2 id="注册域名"><a href="#注册域名" class="headerlink" title="注册域名"></a>注册域名</h2><p>在国内如<strong>阿里云</strong>、<strong>腾讯云</strong>，以及国外的 <strong>NameSilo</strong>、<strong>NameCheap</strong> 等平台能够注册域名，网络上推荐较多的平台是 <strong>NameSilo</strong>，大家也可以多个平台对比权衡。由于我使用着<strong>阿里云</strong>的 OSS 服务及其它一些功能，为了方便，我选择直接在阿里云平台上进行注册。</p>
+<p>首先，在阿里云「产品」列表中点击「企业服务与云通信」，在右侧选择「域名」，并开通服务。</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/%E9%80%89%E6%8B%A9%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1.png" alt="选择域名服务"></p>
+<p>进入域名页面后，填入你想要的域名，点击「查询域名」，便可以查看到不同后缀的域名的售价。</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/%E6%90%9C%E7%B4%A2%E5%9F%9F%E5%90%8D.png" alt="搜索域名"></p>
+<p><strong>注意：</strong>在该列表中，可能首年价格会比较便宜，但<strong>续费价格可能是很贵的</strong>！一定要仔细查看价格！一般 <em>.top</em> 或者 <em>.xyz</em> 后缀的域名首年价格及续费价格会相对便宜。同时，多位数字的域名相比字母域名也会稍便宜一些。</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/%E5%9F%9F%E5%90%8D%E4%BB%B7%E6%A0%BC.png" alt="域名价格"></p>
+<p>在购买域名之后，确保<strong>完成实名认证</strong>，此后域名便能够开始使用！</p>
+<h2 id="托管域名"><a href="#托管域名" class="headerlink" title="托管域名"></a>托管域名</h2><p>Cloudflare 具有许多有用的功能，并且提供了免费的使用计划，因此我选择使用其对域名进行托管。</p>
+<p>在注册 Cloudflare 之后，进入「网站」，点击「添加域」；或者右上角菜单栏点击「添加」中的「现有域」。</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/cloudflare%E6%B7%BB%E5%8A%A0%E5%9F%9F.png" alt="Cloudflare 添加域"></p>
+<p>在显示出的页面中，输入你注册的域名，其他选项默认，点击「继续」。</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/%E6%B7%BB%E5%8A%A0%E5%9F%9F%E8%BE%93%E5%85%A5%E5%9F%9F%E5%90%8D.png" alt="输入个人域名"></p>
+<p>在选择计划中，选择「Free」，<del>选择 cf 就是为了白嫖啊，</del>并点击「继续」。</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/cloudflare%E5%85%8D%E8%B4%B9%E8%AE%A1%E5%88%92.png" alt="cloudflare 免费计划"></p>
+<p>在后面的页面中，我们将会被分配到两个 Cloudflare 名称服务器地址。</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/%E6%9B%B4%E6%96%B0%E5%90%8D%E7%A7%B0%E6%9C%8D%E5%8A%A1%E5%99%A8.png" alt="DNS 服务器"></p>
+<p>进入阿里云域名控制器，域名刚注册时使用的是阿里云 DNS 服务器，我们需要将其修改为 Cloudflare DNS 服务器，将上面两个 DNS 服务器地址复制到下方「修改为非阿里云 DNS」处。</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/%E4%BF%AE%E6%94%B9DNS%E6%9C%8D%E5%8A%A1%E5%99%A8.png" alt="修改 DNS 服务器"></p>
+<p>提交后，你可能需要等待一段时间等待域名解析。返回 Cloudflare，后面的设置项按照默认即可，如果没有出现问题，Cloudflare 将会出现如下提示：</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/Cloudflare%E6%88%90%E5%8A%9F%E6%89%98%E7%AE%A1.png" alt="Cloudflare 成功托管"></p>
+<p>这代表域名已经成功被 Cloudflare 托管，后续 DNS 解析可以在 Cloudflare 处进行！当然，此时还无法通过域名直接访问到博客，因为我们还没有将博客地址与域名关联起来。</p>
+<h2 id="配置域名"><a href="#配置域名" class="headerlink" title="配置域名"></a>配置域名</h2><p>该部分将介绍如何为 Github Pages 站点配置 apex 域（顶点域），可参考 <a target="_blank" rel="noopener" href="https://docs.github.com/zh/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site#configuring-an-apex-domain">Github 文档</a>。</p>
+<p>进入 Github - Settings - Pages 页面，将注册的域名输入于「Custom domain」处，并点击「save」，此时会在仓库中多出一个「CNAME」文件，该文件中内容为你刚刚输入的域名。</p>
+<p><strong>注意：请将「CNAME」文件保存在本地博客文件夹中的 <em>&#x2F;source</em> 目录下</strong>，否则每次使用 <code>hexo g</code> 命令时由于本地缺失该文件，会把库中的文件删掉。具体问题可参考<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/30670216/answer/3509017991">这篇文章</a>。</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/github_pages%E8%AE%BE%E7%BD%AE.png" alt="github Pages 设置"></p>
+<p>对于子域名，直接解析 CNAME 即可；而对于顶点域，则只能使用 A 记录和 AAAA 记录进行解析。</p>
+<p>我们需要根据文档前往 Cloudflare 设置 A 记录和 AAAA 记录，记录名称填入 <code>@</code> 即可。设置后的效果如图所示：</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/blog_domain_cdn/%E8%AE%BE%E7%BD%AEDNS%E8%AE%B0%E5%BD%95.png" alt="设置 DNS 记录"></p>
+<p>此时在浏览器输入自己的域名，便能够看到自己的博客页面啦！这不，我现在已经能够通过 <em><a target="_blank" rel="noopener" href="https://loong-leaf.top/">https://loong-leaf.top</a></em> 访问到我的博客啦！</p>
+<p>在参考的 bilibili 视频中，up 主还修改了 <em>_config.yml</em> 文件中的 url，但我这样做会导致网页重定向次数过多，反而无法打开自己的博客页面，特在此标记。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>bilibili - <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV12o4y1K79H/?spm_id_from=333.337.search-card.all.click&vd_source=738151acb85f4e006a90798faab4e902">【Hexo | 02】使用自定义域名访问博客</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://gubaleaves.github.io">Loong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://gubaleaves.github.io/2024/09/01/blog_domain_cdn/">https://gubaleaves.github.io/2024/09/01/blog_domain_cdn/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://gubaleaves.github.io" target="_blank">Loong's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Blog/">Blog</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/04/beanutils_copyproperties/" title="copyProperties 避坑指南"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">copyProperties 避坑指南</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/11/git_rebase/" title="git rebase 使用"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">git rebase 使用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/07/03/blog_build_new/" title="博客是怎样建成的"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-07-03</div><div class="title">博客是怎样建成的</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Loong</div><div class="author-info__description">Go for it! Just do it!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com//Gubaleaves"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E5%9F%9F%E5%90%8D"><span class="toc-number">2.</span> <span class="toc-text">注册域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%98%E7%AE%A1%E5%9F%9F%E5%90%8D"><span class="toc-number">3.</span> <span class="toc-text">托管域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%9F%9F%E5%90%8D"><span class="toc-number">4.</span> <span class="toc-text">配置域名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">5.</span> <span class="toc-text">参考文章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/04/beanutils_copyproperties/" title="copyProperties 避坑指南"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="copyProperties 避坑指南"/></a><div class="content"><a class="title" href="/2024/09/04/beanutils_copyproperties/" title="copyProperties 避坑指南">copyProperties 避坑指南</a><time datetime="2024-09-04T13:55:00.000Z" title="发表于 2024-09-04 21:55:00">2024-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/01/blog_domain_cdn/" title="博客是怎样优化的｜自定义域名"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客是怎样优化的｜自定义域名"/></a><div class="content"><a class="title" href="/2024/09/01/blog_domain_cdn/" title="博客是怎样优化的｜自定义域名">博客是怎样优化的｜自定义域名</a><time datetime="2024-09-01T11:43:00.000Z" title="发表于 2024-09-01 19:43:00">2024-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/11/git_rebase/" title="git rebase 使用"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git rebase 使用"/></a><div class="content"><a class="title" href="/2024/08/11/git_rebase/" title="git rebase 使用">git rebase 使用</a><time datetime="2024-08-11T13:01:14.000Z" title="发表于 2024-08-11 21:01:14">2024-08-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/07/snowflake_id/" title="雪花算法生成分布式 ID"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="雪花算法生成分布式 ID"/></a><div class="content"><a class="title" href="/2024/08/07/snowflake_id/" title="雪花算法生成分布式 ID">雪花算法生成分布式 ID</a><time datetime="2024-08-07T07:26:00.000Z" title="发表于 2024-08-07 15:26:00">2024-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/17/stable_diffusion/" title="Stable Diffusion 基础使用"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Stable Diffusion 基础使用"/></a><div class="content"><a class="title" href="/2024/07/17/stable_diffusion/" title="Stable Diffusion 基础使用">Stable Diffusion 基础使用</a><time datetime="2024-07-17T12:55:00.000Z" title="发表于 2024-07-17 20:55:00">2024-07-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Loong</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://leafloong.netlify.app/.netlify/functions/twikoo',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://leafloong.netlify.app/.netlify/functions/twikoo',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js').then(init)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

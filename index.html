@@ -1,7 +1,293 @@
-extends includes/layout.pug
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Loong's Blog</title><meta name="author" content="Loong"><meta name="copyright" content="Loong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Go for it! Just do it!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Loong&#39;s Blog">
+<meta property="og:url" content="https://gubaleaves.github.io/index.html">
+<meta property="og:site_name" content="Loong&#39;s Blog">
+<meta property="og:description" content="Go for it! Just do it!">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:author" content="Loong">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://gubaleaves.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Loong\'s Blog',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2024-10-10 15:09:20'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
 
-block content
-  include ./includes/mixins/post-ui.pug
-  #recent-posts.recent-posts
-    +postUI
-    include includes/pagination.pug
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header" style="background-image: url('/others/background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Loong's Blog"><span class="site-name">Loong's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Loong's Blog</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2024/09/04/beanutils_copyproperties/" title="copyProperties 避坑指南"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="copyProperties 避坑指南"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/09/04/beanutils_copyproperties/" title="copyProperties 避坑指南">copyProperties 避坑指南</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-09-04T13:55:00.000Z" title="发表于 2024-09-04 21:55:00">2024-09-04</time></span></div><div class="content">前言由于项目中两个对象之间需要拷贝的属性较多，使用 getter&#x2F;setter 方法难免会增加代码量与可读性，因此偷懒使用了 BeanUtils.copyProperties() 方法，结果碰巧就掉到了坑里，null 值被拷贝了……因此，特意查找网上的资料找到了对应的解决方法，也总结了该方法的几个容易掉进去的坑。
+当然，更好的方法还是乖乖使用 getter&#x2F;setter 方法吧……
+一、属性名称或类型不一致无法拷贝12345678910111213141516171819202122public class Attribute &#123;    @Data    @AllArgsConstructor    static class Source &#123;        private String userName;  // 与Target类属性名称不一致        private Integer weight;  // 与Target类属性类型不一致    &#125;    @Data    static class Target &#123;    ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2024/09/01/blog_domain_cdn/" title="博客是怎样优化的｜自定义域名"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客是怎样优化的｜自定义域名"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/09/01/blog_domain_cdn/" title="博客是怎样优化的｜自定义域名">博客是怎样优化的｜自定义域名</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-09-01T11:43:00.000Z" title="发表于 2024-09-01 19:43:00">2024-09-01</time></span></div><div class="content">前言在写博客的这段时间中，我发现将图像等静态资源放在 Github 上经常出现图片无法访问、加载速度慢的问题，前者可能是上传的过程中出现了错误，而后者会随着博客内容的增多而加剧，因此我决定使用阿里云 OSS 服务作为图床。同时，通过注册个人域名，并使用 Cloudflare 托管域名，获得 Cloudflare 提供的诸多免费功能。
+因为过程中由于对部分操作不熟悉，遇到了许多问题，但完成后内心是激动万分的！在此，我会将这些过程逐步记录下来，用于纪念，也便于其他人学习。我会以两篇文章分别介绍 OSS 图床与自定义域名的实现，本文将介绍实现自定义域名的具体步骤。
+注册域名在国内如阿里云、腾讯云，以及国外的 NameSilo、NameCheap 等平台能够注册域名，网络上推荐较多的平台是 NameSilo，大家也可以多个平台对比权衡。由于我使用着阿里云的 OSS 服务及其它一些功能，为了方便，我选择直接在阿里云平台上进行注册。
+首先，在阿里云「产品」列表中点击「企业服务与云通信」，在右侧选择「域名」，并开通服务。
+
+进入域名页面后，填入你想要的域名，点击「查询域名」，便可以查看到不同后缀的域 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/08/11/git_rebase/" title="git rebase 使用"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git rebase 使用"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/08/11/git_rebase/" title="git rebase 使用">git rebase 使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-08-11T13:01:14.000Z" title="发表于 2024-08-11 21:01:14">2024-08-11</time></span></div><div class="content">前言在使用 Git 进行多人协作的过程中，导师曾提起过要学会使用 git rebase 进行代码的推送，因此我也是查找了一些信息，并在此进行简单整理，将 git rebase 的优点及使用场景等信息进行介绍。
+merge 和 rebase 的区别通常我们开发时，会从某个分支拉取一个新分支，如图中所示，在 C2 时期，从 master 分支中拉取一个新分支 experiment，后续 master 分支和 experiment 分支各自也都有了新的提交：
+
+git merge当我们觉得 experiment 分支的开发结束了，需要合入到 master 分支进行发布，通常会选择切到 master 分支，执行 git merge experiment，将 experiment 分支 merge 到 master 分支之中，合并后的结果如下：
+
+合并时会生成 C5 节点，C5 节点是 C3 和 C4 的内容合并，并且一般来讲它的 commit 信息都是 Merge branch &#39;experiment&#39; into &#39;master&#39; 这种，甚至 master 和  ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2024/08/07/snowflake_id/" title="雪花算法生成分布式 ID"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="雪花算法生成分布式 ID"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/08/07/snowflake_id/" title="雪花算法生成分布式 ID">雪花算法生成分布式 ID</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-08-07T07:26:00.000Z" title="发表于 2024-08-07 15:26:00">2024-08-07</time></span></div><div class="content">前言为了加快数据库的查询速度，主键和索引的选择也是相当重要的一部分，此文介绍几个常见的分布式 id 生成方案，并讲述几种雪花算法的实现形式。经过综合权衡，当数据量较大时，使用雪花算法生成分布式 id 能够在确保安全性的同时保持较优的查询性能，是一种比较适合目前实际应用的 id 生成算法。
+分布式 ID 基本规则
+全局唯一性：不能出现重复的 id
+
+递增性：MySQL 的 InnoDB 使用的是聚簇索引，由于多数 RDBMS 使用 B-tree 的数据结构来存储索引数据，因此在主键的选择上我们还是应该尽可能地使用有序的主键来保证写入性能，我们保证下一个 id 一定大于上一个 id，以此来满足事务版本号、IM 增量消息或者排序的特殊需求
+
+安全性：如果 id 是连续的，那么我们在知道一些基本规则的情况下就能很轻松地推测出下一份数据，这在一些机密性较高的业务场景是很危险的。所以我们有时会希望 id 是无规则的，最好还能包含有时间戳，这样就能够在开发中快速了解这个分布式 id 的生成时间
+
+高性能高可用性：确保在任何时候都能正确地生成 id，并且在高并发的环境下也能表现良好
+
+
+常见分布式 I ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/07/17/stable_diffusion/" title="Stable Diffusion 基础使用"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Stable Diffusion 基础使用"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/07/17/stable_diffusion/" title="Stable Diffusion 基础使用">Stable Diffusion 基础使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-17T12:55:00.000Z" title="发表于 2024-07-17 20:55:00">2024-07-17</time></span></div><div class="content">前言由于目前的项目中可能会使用到文生图模型，因此对 Stable Diffusion 的安装与使用进行了些许了解，并记录在本文之中，以便于后续使用。本文中 Stable Diffusion 的安装及 API 调用过程均在 MacOS 系统实现，Windows 系统部分步骤会存在差别。
+WebUI 安装步骤
+安装 Homebrew
+打开终端输入以下命令：
+1$ /bin/bash -c &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)&quot;
+
+按提示操作，等待自动安装完成，安装结束会有Installation successful提示。
+
+安装 Python 3.10
+打开终端输入以下命令，等待自动安装完成即可：
+1$ brew install cmake protobuf rust python@3.10 git wget
+
+安装 WebUI 软件包
+在安装的目标文件夹打开终端，输入以下命令，将代码克隆至本地：
+1$ git clone https://gi ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2024/07/15/alibaba_code_protocol/" title="阿里巴巴代码规范｜编程规约"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="阿里巴巴代码规范｜编程规约"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/07/15/alibaba_code_protocol/" title="阿里巴巴代码规范｜编程规约">阿里巴巴代码规范｜编程规约</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-15T10:35:00.000Z" title="发表于 2024-07-15 18:35:00">2024-07-15</time></span></div><div class="content">前言本文章整理自《阿里巴巴Java开发手册》，该手册共七大部分，该文属于第一部分《编码规约内容》简单整理而成。本文目的是熟悉开发规范，在开发过程中尽可能避免简单错误，也能有效治疗我的代码洁癖（笑）。
+一、命名风格
+【强制】代码中的命名均不能以下划线或美元符号开始，也不能以下划线或美元符号结束。
+反例：_name&#x2F;__name&#x2F;$name&#x2F;name_&#x2F;name$&#x2F;name__
+
+【强制】代码中的命名严禁使用拼音与英文混合的方式，更不允许直接使用中文的方式。
+说明：正确的英文拼写和语法可以让阅读者易于理解，避免歧义。注意，纯拼音命名方式更要避免采用。
+正例：renminbi&#x2F;alibaba&#x2F;taobao&#x2F;youku&#x2F;hangzhou 等国际通用的名称，可视同英文。
+反例：DaZhePromotion [打折]&#x2F;getPingfenByName() [评分]&#x2F;int 某变量 = 3
+
+【强制】类名使用 UpperCamelCase 风格，但以下情形例外：DO&#x2F;BO&#x2F ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/07/11/vmware_linux/" title="MacOS 安装 Linux 虚拟机"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MacOS 安装 Linux 虚拟机"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/07/11/vmware_linux/" title="MacOS 安装 Linux 虚拟机">MacOS 安装 Linux 虚拟机</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-11T08:50:00.000Z" title="发表于 2024-07-11 16:50:00">2024-07-11</time></span></div><div class="content">前言接触 MacOS 系统后，也是有许多不太习惯的地方，其中安装 Linux 虚拟机并设置静态 IP 的过程也是出现了小波折，因此在本文将该过程进行记录。本文使用 CentOS 7 ，是一个企业级的 Linux 发行版本。
+为什么需要使用到静态 IP 呢？因为使用动态 IP 会造成虚拟机每次开机 IP 会发生变化，造成 ssh 连接需要经常性修改，会造成诸多不便。
+注：该日期恰好 CentOS 停止更新后不久，我在完成联网后一直在 yum 源上出现问题，官方源报错 Cannot find a valid baseurl for repo，换成阿里云源也是连接失败，花了挺长时间也无法解决，也不清楚具体是什么情况。总之，随着 CentOS 的停更，其热度也会逐渐下降，之后我会去学习 Ubuntu 的使用了，这篇文章也就当作留念吧。
+又注：虚拟机 Ubuntu 的安装过程可以参考 Bilibili 的这篇教程：macOS 使用 VMware Fusion 安装 Ubuntu 桌面版。这篇教程很详细，我就不再开新文章记录我自己的过程了，安装后使用 ITerm 2 进行 ssh 连接的过程也是可 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2024/07/08/docker_basic/" title="Docker 基础使用"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Docker 基础使用"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/07/08/docker_basic/" title="Docker 基础使用">Docker 基础使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-08T07:47:00.000Z" title="发表于 2024-07-08 15:47:00">2024-07-08</time></span></div><div class="content">前言java 的 学习离不开 Docker 与 k8s，后续的工作中也不可避免的会使用到，于是乎，我决定学习一下 Docker 的基础知识与应用，并以此文进行记录！加油！
+快速入门Docker 是什么当我们利用 Docker 安装应用时，Docker 会自动搜索并下载应用镜像（image）。镜像不仅包含应用本身，还包含应用运行所需要的环境、配置、系统函数库。Docker 会在运行镜像时创建一个隔离环境，称为容器（container）。
+Docker 与虚拟机的区别
+架构层次
+虚拟机在宿主机的硬件之上运行一个完整的操作系统，每个虚拟机有独立的内核；而 Docker 是基于操作系统级别的虚拟化技术，所有容器共享宿主机的操作系统内核，容器之间使用隔离机制实现相对独立的运行环境。
+
+资源开销
+每个虚拟机都包含一个完整的操作系统，因此需要更多的 CPU、内存和存储资源，启动时间也较长；而 Docker 由于共享宿主操作系统，资源开销小，启动时间也更加快速。
+
+隔离性
+每个虚拟机都有独立的操作系统和资源分配，而 Docker 隔离性不如虚拟机。
+
+使用场景
+Docker 更适合微服务架构、开发测试 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2024/07/06/spring_ai/" title="SpringAI 基础使用"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="SpringAI 基础使用"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/07/06/spring_ai/" title="SpringAI 基础使用">SpringAI 基础使用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-06T09:55:00.000Z" title="发表于 2024-07-06 17:55:00">2024-07-06</time></span></div><div class="content">前言目前在研究 SpringAI 的使用，我会将学习到的相关知识在这片博客进行整理，方便加深印象以及后期复习，也希望能够帮助看到这篇博客的朋友去学习 SpringAI 的使用方法。
+Chat Model 与 Chat Client文中各样例均使用 Chat Model API，我将SpringAI官网对其与 Chat Client API 的介绍贴至下方，大家可按照需求进行选择。
+
+Chat Client APIThe ChatClient offers a fluent API for communicating with an AI Model. It supports both a synchronous and reactive programming model.
+The fluent API has methods for building up the constituent parts of a Prompt that is passed to the AI model as input. The Prompt contains the instructional te ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2024/07/03/blog_build_new/" title="博客是怎样建成的"><img class="post-bg" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客是怎样建成的"></a></div><div class="recent-post-info"><a class="article-title" href="/2024/07/03/blog_build_new/" title="博客是怎样建成的">博客是怎样建成的</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-07-03T11:27:00.000Z" title="发表于 2024-07-03 19:27:00">2024-07-03</time></span></div><div class="content">前言我用了约 2 天的时间学习了如何在 MacOS 上使用 Github Pages 和 Hexo 制作一个免费的个人博客，现在也是终于建成了！
+因此，在此处记录一下整体的过程，也方便看到的朋友也能够搭建一个属于自己的小博客。
+本篇博客大多是根据网络上的教程整合而来，按照自己实际过程进行整理，因此会将参考文章的链接放在最下方，方便读者自己去选择和研究。
+Step1: 本地部署Node.js 安装直接从 Node.js 官网下载后安装即可。
+安装完成后，输入下列命令，如果出现版本号，证明配置成功。
+1$ node -v
+
+Git 安装直接从 Git 官网下载后安装即可。
+安装完成后，输入下列命令，如果出现版本号，证明配置成功。
+1$ git -v
+
+Hexo安装在终端输入下列命令即可自动安装，需要注意的是此处是此处使用 -g 是为了全局安装。
+1$ sudo npm install -g hexo-cli
+
+来到你的博客文件夹想要存放的空间，输入以下指令用于初始化本地博客文件，其中 MyBlog 可以修改为你希望的文件夹名称。
+123$ hexo init MyBlog$ cd ~/My ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Loong</div><div class="author-info__description">Go for it! Just do it!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com//Gubaleaves"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/04/beanutils_copyproperties/" title="copyProperties 避坑指南"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="copyProperties 避坑指南"/></a><div class="content"><a class="title" href="/2024/09/04/beanutils_copyproperties/" title="copyProperties 避坑指南">copyProperties 避坑指南</a><time datetime="2024-09-04T13:55:00.000Z" title="发表于 2024-09-04 21:55:00">2024-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/01/blog_domain_cdn/" title="博客是怎样优化的｜自定义域名"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客是怎样优化的｜自定义域名"/></a><div class="content"><a class="title" href="/2024/09/01/blog_domain_cdn/" title="博客是怎样优化的｜自定义域名">博客是怎样优化的｜自定义域名</a><time datetime="2024-09-01T11:43:00.000Z" title="发表于 2024-09-01 19:43:00">2024-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/11/git_rebase/" title="git rebase 使用"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git rebase 使用"/></a><div class="content"><a class="title" href="/2024/08/11/git_rebase/" title="git rebase 使用">git rebase 使用</a><time datetime="2024-08-11T13:01:14.000Z" title="发表于 2024-08-11 21:01:14">2024-08-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/07/snowflake_id/" title="雪花算法生成分布式 ID"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="雪花算法生成分布式 ID"/></a><div class="content"><a class="title" href="/2024/08/07/snowflake_id/" title="雪花算法生成分布式 ID">雪花算法生成分布式 ID</a><time datetime="2024-08-07T07:26:00.000Z" title="发表于 2024-08-07 15:26:00">2024-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/17/stable_diffusion/" title="Stable Diffusion 基础使用"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Stable Diffusion 基础使用"/></a><div class="content"><a class="title" href="/2024/07/17/stable_diffusion/" title="Stable Diffusion 基础使用">Stable Diffusion 基础使用</a><time datetime="2024-07-17T12:55:00.000Z" title="发表于 2024-07-17 20:55:00">2024-07-17</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/AI/" style="font-size: 1.3em; color: #99a1ac">AI</a> <a href="/tags/MySQL/" style="font-size: 1.1em; color: #999">MySQL</a> <a href="/tags/Blog/" style="font-size: 1.3em; color: #99a1ac">Blog</a> <a href="/tags/Docker/" style="font-size: 1.1em; color: #999">Docker</a> <a href="/tags/Linux/" style="font-size: 1.1em; color: #999">Linux</a> <a href="/tags/SpringAI/" style="font-size: 1.1em; color: #999">SpringAI</a> <a href="/tags/Java/" style="font-size: 1.5em; color: #99a9bf">Java</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/09/"><span class="card-archive-list-date">九月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/08/"><span class="card-archive-list-date">八月 2024</span><span class="card-archive-list-count">2</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/07/"><span class="card-archive-list-date">七月 2024</span><span class="card-archive-list-count">6</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">10</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-10-10T07:09:20.288Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Loong</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>window.typedJSFn = {
+  init: (str) => {
+    window.typed = new Typed('#subtitle', Object.assign({
+      strings: str,
+      startDelay: 300,
+      typeSpeed: 150,
+      loop: true,
+      backSpeed: 50,
+    }, null))
+  },
+  run: (subtitleType) => {
+    if (true) {
+      if (typeof Typed === 'function') {
+        subtitleType()
+      } else {
+        getScript('https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.min.js').then(subtitleType)
+      }
+    } else {
+      subtitleType()
+    }
+  }
+}
+</script><script>function subtitleType () {
+  getScript('https://sdk.jinrishici.com/v2/browser/jinrishici.js').then(() => {
+    jinrishici.load(result =>{
+      if (true) {
+        const sub = []
+        const content = result.data.content
+        sub.unshift(content)
+        typedJSFn.init(sub)
+      } else {
+        document.getElementById('subtitle').textContent = result.data.content
+      }
+    })
+  })
+}
+typedJSFn.run(subtitleType)
+</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

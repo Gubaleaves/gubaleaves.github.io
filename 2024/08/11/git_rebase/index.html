@@ -1,32 +1,264 @@
-extends includes/layout.pug
-
-block content
-  #post
-    if top_img === false
-      include includes/header/post-info.pug
-
-    article#article-container.post-content!=page.content
-    include includes/post/post-copyright.pug
-    .tag_share
-      if (theme.post_meta.post.tags)
-        .post-meta__tag-list
-          each item, index in page.tags.data
-            a(href=url_for(item.path)).post-meta__tags #[=item.name]
-      include includes/third-party/share/index.pug
-        
-    if theme.reward.enable && theme.reward.QR_code
-      !=partial('includes/post/reward', {}, {cache: true})
-
-    //- ad
-    if theme.ad && theme.ad.post
-      .ads-wrap!=theme.ad.post
-
-    if theme.post_pagination
-      include includes/pagination.pug
-    if theme.related_post && theme.related_post.enable
-      != related_posts(page,site.posts)
-
-    if page.comments !== false && theme.comments && theme.comments.use
-      - var commentsJsLoad = true
-      !=partial('includes/third-party/comments/index', {}, {cache: true})
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>git rebase 使用 | Loong's Blog</title><meta name="author" content="Loong"><meta name="copyright" content="Loong"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言在使用 Git 进行多人协作的过程中，导师曾提起过要学会使用 git rebase 进行代码的推送，因此我也是查找了一些信息，并在此进行简单整理，将 git rebase 的优点及使用场景等信息进行介绍。 merge 和 rebase 的区别通常我们开发时，会从某个分支拉取一个新分支，如图中所示，在 C2 时期，从 master 分支中拉取一个新分支 experiment，后续 master">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git rebase 使用">
+<meta property="og:url" content="https://gubaleaves.github.io/2024/08/11/git_rebase/index.html">
+<meta property="og:site_name" content="Loong&#39;s Blog">
+<meta property="og:description" content="前言在使用 Git 进行多人协作的过程中，导师曾提起过要学会使用 git rebase 进行代码的推送，因此我也是查找了一些信息，并在此进行简单整理，将 git rebase 的优点及使用场景等信息进行介绍。 merge 和 rebase 的区别通常我们开发时，会从某个分支拉取一个新分支，如图中所示，在 C2 时期，从 master 分支中拉取一个新分支 experiment，后续 master">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2024-08-11T13:01:14.000Z">
+<meta property="article:modified_time" content="2024-09-24T05:46:52.000Z">
+<meta property="article:author" content="Loong">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://gubaleaves.github.io/2024/08/11/git_rebase/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'git rebase 使用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-24 13:46:52'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
       
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><script>(()=>{
+  const $loadingBox = document.getElementById('loading-box')
+  const $body = document.body
+  const preloader = {
+    endLoading: () => {
+      $body.style.overflow = ''
+      $loadingBox.classList.add('loaded')
+    },
+    initLoading: () => {
+      $body.style.overflow = 'hidden'
+      $loadingBox.classList.remove('loaded')
+    }
+  }
+
+  preloader.initLoading()
+  window.addEventListener('load',() => { preloader.endLoading() })
+
+  if (false) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+})()</script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Loong's Blog"><span class="site-name">Loong's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">git rebase 使用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-11T13:01:14.000Z" title="发表于 2024-08-11 21:01:14">2024-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-24T05:46:52.000Z" title="更新于 2024-09-24 13:46:52">2024-09-24</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="git rebase 使用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在使用 Git 进行多人协作的过程中，导师曾提起过要学会使用 <code>git rebase</code> 进行代码的推送，因此我也是查找了一些信息，并在此进行简单整理，将 <code>git rebase</code> 的优点及使用场景等信息进行介绍。</p>
+<h2 id="merge-和-rebase-的区别"><a href="#merge-和-rebase-的区别" class="headerlink" title="merge 和 rebase 的区别"></a>merge 和 rebase 的区别</h2><p>通常我们开发时，会从某个分支拉取一个新分支，如图中所示，在 C2 时期，从 master 分支中拉取一个新分支 experiment，后续 master 分支和 experiment 分支各自也都有了新的提交：</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/git_rebase/%E6%96%B0%E5%BB%BA%E5%88%86%E6%94%AF.png" alt="新建分支"></p>
+<h3 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h3><p>当我们觉得 experiment 分支的开发结束了，需要合入到 master 分支进行发布，通常会选择切到 master 分支，执行 <code>git merge experiment</code>，将 experiment 分支 merge 到 master 分支之中，合并后的结果如下：</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/git_rebase/%E4%BD%BF%E7%94%A8merge.png" alt="使用 merge"></p>
+<p>合并时会生成 C5 节点，C5 节点是 C3 和 C4 的内容合并，并且一般来讲它的 commit 信息都是 <code>Merge branch &#39;experiment&#39; into &#39;master&#39;</code> 这种，甚至 master 和 experiment 各自分支上都有很多次提交节点，那么最终合并出来的节点里，会糅合很多很多不同开发者的提交。</p>
+<p>对于最终的 master 来讲，前面每个提交节点 commit 信息、提交人很明确、提交内容都很明确，但是做了一次 merge 操作，生成的 C5 节点又把前面一堆节点信息包含了一遍，后续如果对 master 分支做记录回溯或者回滚时，麻烦就大了。</p>
+<h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><p>其实，还有一种方法：你可以提取在 C4 中引入的补丁和修改，然后在 C3 的基础上应用一次。 在 Git 中，这种操作就叫做<strong>变基</strong>。 你可以使用 <code>git rebase</code> 命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样。具体什么是 rebase，可以通过下图来理解，在 experiment 分支执行 <code>git rebase master</code> 后，C4 的修改将会变基到 C3 上：</p>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/git_rebase/%E4%BD%BF%E7%94%A8rebase.png" alt="使用 rebase"></p>
+<p>它的原理是首先找到这两个分支（即当前分支 experiment、变基操作的目标基底分支 master）的最近共同祖先 C2，然后对比当前分支相对于该祖先的历次提交，提取相应的修改并存为临时文件，然后将当前分支指向目标基底 C3, 最后以此将之前另存为临时文件的修改依序应用。</p>
+<p>rebase 后，现在 experiment 和 master 的所有提交节点又成了一个简单的链式结构，在 master 分支里执行 <code>git merge experiment</code>，此时就是简单的快进合并了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout master</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git merge experiment</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/git_rebase/rebase%E5%90%8Emerge.png" alt="rebase 后 merge"></p>
+<p>还有一种情况，从 experiment 分支又拉取了一个 other 分支，master、experiment、other 三个分支分别进行不同的提交，othe 分支想早于 experiment 分支合入 master，可以使用 <code>git rebase --onto master experiment other</code> 命令，直接将 other 分支变基到 master，之后将 other 合并到 master 里时，也是快进合并，单链表结构。</p>
+<h3 id="孰优孰劣"><a href="#孰优孰劣" class="headerlink" title="孰优孰劣"></a>孰优孰劣</h3><blockquote>
+<p>有一种观点认为，仓库的提交历史即是 <strong>记录实际发生过什么</strong>。 它是针对历史的文档，本身就有价值，不能乱改。 从这个角度看来，改变提交历史是一种亵渎，你使用_谎言_掩盖了实际发生过的事情。 如果由合并产生的提交历史是一团糟怎么办？ 既然事实就是如此，那么这些痕迹就应该被保留下来，让后人能够查阅。</p>
+<p>另一种观点则正好相反，他们认为提交历史是 <strong>项目过程中发生的事</strong>。 没人会出版一本书的第一版草稿，软件维护手册也是需要反复修订才能方便使用。 持这一观点的人会使用 rebase 及 filter-branch 等工具来编写故事，怎么方便后来的读者就怎么写。</p>
+</blockquote>
+<h2 id="变基的风险"><a href="#变基的风险" class="headerlink" title="变基的风险"></a>变基的风险</h2><p>使用 rebase 命令必须遵守一条准则：<strong>不要对在你的仓库外有副本的分支执行变基</strong>！</p>
+<blockquote>
+<p>变基操作的实质是丢弃一些现有的提交，然后相应地新建一些内容一样但实际上不同的提交。 如果你已经将提交推送至某个仓库，而其他人也已经从该仓库拉取提交并进行了后续工作，此时，如果你用 <code>git rebase</code> 命令重新整理了提交并再次推送，你的同伴因此将不得不再次将他们手头的工作与你的提交进行整合，如果接下来你还要拉取并整合他们修改过的提交，事情就会变得一团糟。</p>
+</blockquote>
+<h2 id="常用场景"><a href="#常用场景" class="headerlink" title="常用场景"></a>常用场景</h2><h3 id="拉取远端更新"><a href="#拉取远端更新" class="headerlink" title="拉取远端更新"></a>拉取远端更新</h3><ul>
+<li><code>git pull</code> &#x3D; <code>git fetch</code> + <code>git merge</code>，拉取到远端分支的更新，merge 到本地分支里，如果本地和远端分别有不同的提交节点，那么 merge 时会生成一个新的合并节点：</li>
+</ul>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/git_rebase/%E6%8B%89%E5%8F%96%E8%BF%9C%E7%AB%AF%E6%9B%B4%E6%96%B0merge.png" alt="拉取远端更新 merge"></p>
+<ul>
+<li><code>git pull --rebase</code> &#x3D; <code>git fetch</code> + <code>git rebase</code>，拉取到远端分支的更新，采用 rebase 模式，将自己本地分支的提交节点变基到远端分支最新的节点上，保持链式结构。</li>
+</ul>
+<p><img src="https://loong-blogs.oss-cn-beijing.aliyuncs.com/git_rebase/%E6%8B%89%E5%8F%96%E8%BF%9C%E7%AB%AF%E6%9B%B4%E6%96%B0rebase.png" alt="拉取远端更新 rebase"></p>
+<p>可以将 git pull 配置成默认 rebase 模式，就不需要每次加 <code>--rebase</code> 了。</p>
+<h3 id="日常开发"><a href="#日常开发" class="headerlink" title="日常开发"></a>日常开发</h3><p><strong>模式一：</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当前是 develop 分支</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git pull --rebase  <span class="comment"># 将本地 develop 分支更新成最新</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout -b develop_feature  <span class="comment"># 基于 develop 分支拉取一个 develop_feature</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当前是 develop_feature 分支</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-----此处经过一系列 commit，注意：是 commit，只有 commit 才会生成 git 的提交节点，没 commit 的东西，git 不认识------</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout develop</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git pull --rebase  <span class="comment"># 更新 develop，拉过来一堆别人在 develop 分支上的提交</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout develop_feature</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git rebase develop  <span class="comment"># 将当前 develop_feature 分支自己的那堆提交变基到 develop 分支最新节点上（通俗地理解就是时不时地从母分支更新东西过来）</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">git rebase 时跟 git merge 一样，都有可能会产生冲突，将冲突解决以后，执行 git rebase --<span class="built_in">continue</span> 即可完成 rebase，git rebase --abort 表示放弃本次 rebase</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">-----上述步骤可以重复执行很多次，时不时执行一下就行-----</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">需要合并到母分支里了，最终再执行一次上述rebase操作</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout develop</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git merge develop_feature</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">在 develop 分支上是一条完美的链式结构, 最早的是很古老的那些节点，其次是别人在 develop 上提交的那些节点，最后是你自己分支里的这些提交。</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>模式二：</strong>不拉取新分支，就在 develop 分支开发，往 develop 分支提交。这个很简单，就是时不时以 rebase 模式更新一下代码，经常保持自己的提交代码指向该分支远端的最新节点：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git checkout develop</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git pull --rebase</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git commit1</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git commit2</span></span><br><span class="line">...</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git commitn</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git pull --rebase</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git commitx</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git commity</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git pull --rebase</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git push</span></span><br></pre></td></tr></table></figure>
+
+<p>如果基于 develop 切出来一个新分支 develop_feature，并推送到了远端生成一个 origin&#x2F;develop_feature 分支，想用<code>merge request</code> 进行合入，也是时不时在本地执行一下模式一里那个重复的更新步骤，在本地变基到 develop 分支的最新提交节点上，并 push 到远端 origin&#x2F;develop_feature 分支上，那么远端的 origin&#x2F;develop_feature 分支一直是跟 origin&#x2F;develop 在一条链上，审核人点击同意合入时，也是快进合并，不会生成新的 merge 节点</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ol>
+<li><p><code>git rebase</code> 还可以进行多次提交的合一，比如多次提交其实就是对于一个问题的修复，不想之后留下多次修改记录，那么可以 <code>git rebase -i</code> 进行 commit 的合并操作。</p>
+</li>
+<li><p><code>git stash</code> 可以将本地的修改进行暂存，在不想 commit 的情况下进行 merge、rebase、checkout 等操作时，可以先暂存一下，之后再 pop 出来就行。</p>
+</li>
+<li><p><code>git commit --amend</code>：当一个 commit 还在本地没 push 上去时，这个命令可以把刚修改的东西追加到最后一次 commit 里，不会生成新的 commit 节点。</p>
+</li>
+</ol>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p>Git - <a target="_blank" rel="noopener" href="https://git-scm.com/book/en/v2">Pro Git 中文版（第二版）</a> </p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://gubaleaves.github.io">Loong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://gubaleaves.github.io/2024/08/11/git_rebase/">https://gubaleaves.github.io/2024/08/11/git_rebase/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://gubaleaves.github.io" target="_blank">Loong's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/09/01/blog_domain_cdn/" title="博客是怎样优化的｜自定义域名"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">博客是怎样优化的｜自定义域名</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/07/snowflake_id/" title="雪花算法生成分布式 ID"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">雪花算法生成分布式 ID</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="twikoo-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Loong</div><div class="author-info__description">Go for it! Just do it!</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">10</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com//Gubaleaves"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#merge-%E5%92%8C-rebase-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">merge 和 rebase 的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git-merge"><span class="toc-number">2.1.</span> <span class="toc-text">git merge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git-rebase"><span class="toc-number">2.2.</span> <span class="toc-text">git rebase</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%B0%E4%BC%98%E5%AD%B0%E5%8A%A3"><span class="toc-number">2.3.</span> <span class="toc-text">孰优孰劣</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E5%9F%BA%E7%9A%84%E9%A3%8E%E9%99%A9"><span class="toc-number">3.</span> <span class="toc-text">变基的风险</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">4.</span> <span class="toc-text">常用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8B%89%E5%8F%96%E8%BF%9C%E7%AB%AF%E6%9B%B4%E6%96%B0"><span class="toc-number">4.1.</span> <span class="toc-text">拉取远端更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A5%E5%B8%B8%E5%BC%80%E5%8F%91"><span class="toc-number">4.2.</span> <span class="toc-text">日常开发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B6%E4%BB%96"><span class="toc-number">5.</span> <span class="toc-text">其他</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%AB%A0"><span class="toc-number">6.</span> <span class="toc-text">参考文章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/09/04/beanutils_copyproperties/" title="copyProperties 避坑指南"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="copyProperties 避坑指南"/></a><div class="content"><a class="title" href="/2024/09/04/beanutils_copyproperties/" title="copyProperties 避坑指南">copyProperties 避坑指南</a><time datetime="2024-09-04T13:55:00.000Z" title="发表于 2024-09-04 21:55:00">2024-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/09/01/blog_domain_cdn/" title="博客是怎样优化的｜自定义域名"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="博客是怎样优化的｜自定义域名"/></a><div class="content"><a class="title" href="/2024/09/01/blog_domain_cdn/" title="博客是怎样优化的｜自定义域名">博客是怎样优化的｜自定义域名</a><time datetime="2024-09-01T11:43:00.000Z" title="发表于 2024-09-01 19:43:00">2024-09-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/11/git_rebase/" title="git rebase 使用"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="git rebase 使用"/></a><div class="content"><a class="title" href="/2024/08/11/git_rebase/" title="git rebase 使用">git rebase 使用</a><time datetime="2024-08-11T13:01:14.000Z" title="发表于 2024-08-11 21:01:14">2024-08-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/07/snowflake_id/" title="雪花算法生成分布式 ID"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="雪花算法生成分布式 ID"/></a><div class="content"><a class="title" href="/2024/08/07/snowflake_id/" title="雪花算法生成分布式 ID">雪花算法生成分布式 ID</a><time datetime="2024-08-07T07:26:00.000Z" title="发表于 2024-08-07 15:26:00">2024-08-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/07/17/stable_diffusion/" title="Stable Diffusion 基础使用"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Stable Diffusion 基础使用"/></a><div class="content"><a class="title" href="/2024/07/17/stable_diffusion/" title="Stable Diffusion 基础使用">Stable Diffusion 基础使用</a><time datetime="2024-07-17T12:55:00.000Z" title="发表于 2024-07-17 20:55:00">2024-07-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By Loong</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const getCount = () => {
+    const countELement = document.getElementById('twikoo-count')
+    if(!countELement) return
+    twikoo.getCommentsCount({
+      envId: 'https://leafloong.netlify.app/.netlify/functions/twikoo',
+      region: '',
+      urls: [window.location.pathname],
+      includeReply: false
+    }).then(res => {
+      countELement.textContent = res[0].count
+    }).catch(err => {
+      console.error(err)
+    })
+  }
+
+  const init = () => {
+    twikoo.init(Object.assign({
+      el: '#twikoo-wrap',
+      envId: 'https://leafloong.netlify.app/.netlify/functions/twikoo',
+      region: '',
+      onCommentLoaded: () => {
+        btf.loadLightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+      }
+    }, null))
+
+    
+  }
+
+  const loadTwikoo = () => {
+    if (typeof twikoo === 'object') setTimeout(init,0)
+    else getScript('https://cdn.jsdelivr.net/npm/twikoo@1.6.31/dist/twikoo.all.min.js').then(init)
+  }
+
+  if ('Twikoo' === 'Twikoo' || !true) {
+    if (true) btf.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+    else loadTwikoo()
+  } else {
+    window.loadOtherComment = loadTwikoo
+  }
+})()</script></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-nest.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
